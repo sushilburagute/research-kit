@@ -1,0 +1,18 @@
+{
+  "title": "When a cache makes a request slower",
+  "description": "Explain how read savings and invalidation cost interact. This is a synthetic example brief, not an empirical claim.",
+  "talkingPoints": [
+    "Compare read-heavy and write-heavy workloads",
+    "Show assumptions and counterexamples"
+  ],
+  "reader": "Engineers deciding whether to add a cache",
+  "angle": "Caching needs a workload-specific argument",
+  "portfolio": "Replace with the authorized repository URL or local path",
+  "authorNotes": [],
+  "sourceMaterial": [],
+  "authorization": {
+    "repositoryWritePaths": [],
+    "externalActions": [],
+    "basis": "Prepare article workspace outputs only."
+  }
+}
