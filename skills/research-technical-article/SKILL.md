@@ -60,6 +60,12 @@ Read [research-quality.md](references/research-quality.md) before investigating.
 - Distinguish an observation from a general claim. Research broader applicability without presenting a single person's experience as a universal finding.
 - Offer a full draft, publication action, or distribution copy only when requested. Follow authorization already provided in the task; do not introduce redundant approval stops.
 
+## When assigned by a workflow coordinator
+
+This skill also works independently; no coordinator or companion skill is required for a research-only request. For a delegated assignment, read the packet's selected inputs and skill instructions, retain stable claim/source IDs, and write `research-brief.md` and `evidence-ledger.md` only under its `outputDir`. Report unread inputs. Do not modify workflow state, another worker's draft, or the target portfolio. Researchers alone consolidate the ledger; other workers return correction requests or proposed sources rather than racing to assign IDs.
+
+Return `assignmentId`, `revision`, `summary`, relative `outputs`, `unresolved`, and `checks` (`command`, `status` of `passed`, `failed`, or `not-run`, and `details`). Map the research completion outcome `ready-for-narrative` to handoff `complete` only if the assigned work has no outstanding limitations or unrun declared checks; otherwise use `limited`. Map `limited` to handoff `limited`, and `needs-essential-evidence` to handoff `needs-author` with the exact evidence needed. Never strengthen a research outcome to unblock a downstream stage. The parent decides whether further investigation can resolve a blocker without author input.
+
 ## Completion criteria
 
 Finish with a brief, ledger, and explicit completion statement when:
