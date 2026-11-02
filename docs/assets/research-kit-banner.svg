@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" fill="none" role="img" aria-labelledby="title description">
+  <title id="title">Research Kit</title>
+  <desc id="description">An illustrated workspace connects source evidence and author notes to an article draft. Research, write, refine: your voice stays at the center.</desc>
+  <defs>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" stroke="#E8E0D1" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="400" rx="24" fill="#F8F4EB"/>
+  <rect x="584" width="696" height="400" fill="url(#grid)"/>
+  <path d="M584 0V400" stroke="#E2D9C8"/>
+  <rect x="48" y="48" width="46" height="46" rx="12" fill="#1D6657"/>
+  <path d="M61 63H81M61 71H77M61 79H72" stroke="#F8F4EB" stroke-width="3" stroke-linecap="round"/>
+  <text x="110" y="79" font-family="'Segoe UI',Arial,sans-serif" font-size="19" font-weight="700" letter-spacing="3" fill="#1D6657">AN AUTHOR'S WORKBENCH</text>
+  <text x="44" y="182" font-family="Georgia,'Times New Roman',serif" font-size="76" font-weight="700" letter-spacing="-3" fill="#213E36">Research Kit</text>
+  <text x="49" y="232" font-family="'Segoe UI',Arial,sans-serif" font-size="26" fill="#4D5C53">Good questions. Traceable evidence.</text>
+  <text x="49" y="269" font-family="'Segoe UI',Arial,sans-serif" font-size="26" fill="#4D5C53">A story that sounds like you.</text>
+  <path d="M49 311H98" stroke="#BF613E" stroke-width="4" stroke-linecap="round"/>
+  <text x="112" y="319" font-family="'Segoe UI',Arial,sans-serif" font-size="20" font-weight="600" fill="#1D6657">RESEARCH / WRITE / REFINE</text>
+  <!-- Evidence card -->
+  <rect x="623" y="56" width="246" height="150" rx="14" fill="#EAE3D5"/>
+  <rect x="617" y="50" width="246" height="150" rx="14" fill="#FFFFFF" stroke="#D9D5C9" stroke-width="2"/>
+  <circle cx="646" cy="82" r="9" fill="#1D6657"/>
+  <path d="M642 82L645 85L650 79" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="665" y="89" font-family="'Segoe UI',Arial,sans-serif" font-size="22" font-weight="600" fill="#213E36">Source evidence</text>
+  <path d="M640 118H831M640 135H807M640 152H823" stroke="#DCE4DD" stroke-width="6" stroke-linecap="round"/>
+  <rect x="639" y="170" width="115" height="13" rx="6" fill="#C2DED1"/>
+  <!-- Author note -->
+  <g transform="rotate(-4 751 289)">
+    <rect x="632" y="228" width="242" height="131" rx="12" fill="#E8D8BF"/>
+    <rect x="626" y="222" width="242" height="131" rx="12" fill="#F2DDB8" stroke="#D2B889" stroke-width="2"/>
+    <text x="649" y="260" font-family="'Segoe UI',Arial,sans-serif" font-size="22" font-weight="600" fill="#684724">Your notes</text>
+    <path d="M650 284H829M650 303H795M650 322H812" stroke="#CEB48B" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <!-- Both inputs feed the draft -->
+  <path d="M877 124H901Q921 124 921 144V178H953M880 285H901Q921 285 921 265V218H953" stroke="#1D6657" stroke-width="3" stroke-linecap="round"/>
+  <path d="M945 170L953 178L945 186M945 210L953 218L945 226" stroke="#1D6657" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Article card -->
+  <rect x="977" y="74" width="255" height="266" rx="16" fill="#E4DDCF"/>
+  <rect x="969" y="66" width="255" height="266" rx="16" fill="#FFFFFF" stroke="#B9CCBF" stroke-width="2"/>
+  <path d="M994 97H1023" stroke="#BF613E" stroke-width="5" stroke-linecap="round"/>
+  <text x="992" y="137" font-family="Georgia,'Times New Roman',serif" font-size="30" font-weight="700" fill="#213E36">Your article</text>
+  <path d="M995 164H1196M995 182H1174M995 200H1187" stroke="#DCE4DD" stroke-width="6" stroke-linecap="round"/>
+  <rect x="993" y="220" width="207" height="42" rx="8" fill="#E6F3EF"/>
+  <text x="1008" y="247" font-family="'Segoe UI',Arial,sans-serif" font-size="19" font-weight="600" fill="#1D6657">Evidence + your voice</text>
+  <path d="M995 284H1180M995 302H1137" stroke="#DCE4DD" stroke-width="6" stroke-linecap="round"/>
+</svg>
