@@ -23,6 +23,8 @@ Review the actual integrated revision, not a remembered draft. Return actionable
 
 ## Review the reader experience
 
+When the author likes to trim or the draft exceeds the requested length, identify the easiest useful cut by section or example and explain what the reader would lose. Distinguish optional cuts from required corrections.
+
 - Check that the opening establishes the reader's problem, sections develop a coherent argument, examples explain mechanisms, and the conclusion gives useful takeaways with applicability limits.
 - Trace the original talking points to the final article. Identify omissions, unsupported additions, repetitive sections, and decisions that diverge from author instructions.
 - Compare the writing with the editable profile, allowing topic-appropriate variation. Suggest precise edits, not a generic rewrite or a manufactured voice.
