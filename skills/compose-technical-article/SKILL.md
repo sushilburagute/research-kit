@@ -15,6 +15,8 @@ Turn investigated material into a useful story for the intended reader. The auth
 
 ## Shape the argument
 
+Apply the article brief's length, tone and audience ahead of profile defaults. If the author prefers to cut later, keep worthwhile worked examples while respecting explicit limits. If a choice would change the outline and remains unclear, use the available question tool or ask in chat. With a coordinator, send it the question and options.
+
 Use [outline.md](assets/outline.md) to make the central question, tentative thesis, reader payoff, and sequence explicit. Choose a narrative structure that fits the material: an observed problem and investigation, a decision with trade-offs, or a mechanism explained through examples. Do not impose a fictional incident or canned opening.
 
 - Map every supplied talking point to a section, a deliberate omission with a reason, or a research/author question.

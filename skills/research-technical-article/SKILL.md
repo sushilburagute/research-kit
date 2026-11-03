@@ -12,7 +12,7 @@ Read [research-quality.md](references/research-quality.md) before investigating.
 ## 1. Establish a small working brief
 
 - Extract the topic, intended reader, reader's problem, tentative angle, desired depth, and relevant date or software versions from the request and available context.
-- Ask only about missing context that materially changes the investigation. Otherwise state reasonable assumptions and start; do not block on an approved outline.
+- If uncertainty about audience, angle or depth changes which evidence to collect, use the host's question tool or ask in chat. Offer concrete options. Route delegated questions through the coordinator. Otherwise state reasonable assumptions and start.
 - Treat a tentative thesis as a hypothesis. Record what would weaken it as well as what would support it.
 - Use only notes, files, or repositories the author selected or otherwise authorized for this task. Do not search an entire personal vault or private codebase by default.
 - Choose an output directory supplied by the author or propose a new article-specific directory in the authorized workspace. Keep research files outside the installed skill package. If writing is unavailable, deliver the same structure in the conversation and disclose that files were not saved.

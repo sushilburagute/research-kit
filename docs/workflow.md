@@ -22,17 +22,17 @@ These are skills and local coordination logic. Search access, a writable checkou
 
 Keep the seven directories under `skills/` together as sibling skill folders when installing the complete workflow. Each has its own entrypoint and local resources; the coordinator routes by skill name and its helper resolves sibling entrypoints. Individual specialist folders are portable, with no dependency on a global configuration or on another installed skill for standalone tasks. If a companion is absent, helper dispatch identifies the missing skill rather than inventing its output.
 
-Start by asking the host to read [the coordinator](../skills/portfolio-blog-workflow/SKILL.md), then provide the topic, notes, intended reader, target repository, samples, output workspace and desired endpoint. A full workflow request allows drafting, while a research-only request still stops at research. Preserve already supplied authorization; do not add a new approval gate at each stage.
+Use the [quick start](../README.md) to install the skills and initialise a private writing workspace for one author and portfolio. Setup saves the byline, public bio, portfolio locator, writing preferences and sample observations in `writing-profile.md`. Later chats opened in that workspace can start with a topic and notes. A one-off article can proceed without a saved profile. Research alone needs neither a profile nor a portfolio.
 
 ## Executable handoffs
 
-Adapt [the example brief](../skills/portfolio-blog-workflow/assets/brief.json) into a private `article-input.json`. Keep author notes as notes, with source locators in `sourceMaterial`. The default authorization stages all work in the article workspace. Run:
+Adapt [the example brief](../skills/portfolio-blog-workflow/assets/brief.json) into a private `article-input.json`. Set optional `profilePath` to the absolute path of the workspace's Markdown profile. At init the helper copies it into the run and supplies that copy to context. Later edits affect future runs. Set optional `length` and `tone` for this article when known. Keep author notes as notes, with source locators in `sourceMaterial`. With the README's checkout layout, run these commands from the private workspace:
 
 ```sh
-node skills/portfolio-blog-workflow/scripts/workflow.mjs init ../article-work --brief article-input.json
-node skills/portfolio-blog-workflow/scripts/workflow.mjs status ../article-work
-node skills/portfolio-blog-workflow/scripts/workflow.mjs dispatch ../article-work context
-node skills/portfolio-blog-workflow/scripts/workflow.mjs dispatch ../article-work research
+node .agents/skills/portfolio-blog-workflow/scripts/workflow.mjs init runs/cache-costs --brief article-input.json
+node .agents/skills/portfolio-blog-workflow/scripts/workflow.mjs status runs/cache-costs
+node .agents/skills/portfolio-blog-workflow/scripts/workflow.mjs dispatch runs/cache-costs context
+node .agents/skills/portfolio-blog-workflow/scripts/workflow.mjs dispatch runs/cache-costs research
 ```
 
 The new run directory must not exist already. Each dispatch returns and saves a packet with a unique assignment ID, revision, required skill, selected read-only inputs and fingerprints, allowed writes, task and acceptance criteria. Reruns explicitly receive previous outputs and the correction context, so source IDs, author edits, adopted decisions and history can survive a handoff. Historical files are distinguished from current dependencies. The parent passes the packet to the host's subagent tool, or performs it sequentially. Node never calls a model or executes packet content. Serialize parent mutations; workers write only their assigned directories. Research owns the ledger, composition owns the draft, integration alone receives any explicit target write paths, and review returns findings.

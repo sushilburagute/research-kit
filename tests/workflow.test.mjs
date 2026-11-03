@@ -67,6 +67,42 @@ test('context and research run in parallel; composition waits for both handoffs'
   assert.equal(statusWorkflow(run).stages.compose.status, 'running');
 });
 
+test('fresh article runs snapshot shared preferences independently and retain local overrides', t => {
+  const { holder } = fixture(t);
+  const profilePath = join(holder, 'writing-profile.md');
+  const cli = (...args) => JSON.parse(execFileSync(process.execPath, [runtime, ...args], { encoding: 'utf8' }));
+  const input = join(holder, 'article-input.json');
+  const first = join(holder, 'first');
+  const second = join(holder, 'second');
+  writeFileSync(profilePath, 'Prefer detailed walkthroughs.');
+  write(input, { ...brief, profilePath, length: '500 words', tone: 'Conversational' });
+  cli('init', first, '--brief', input);
+  writeFileSync(profilePath, 'Prefer concise posts.');
+  write(input, { ...brief, profilePath });
+  cli('init', second, '--brief', input);
+  for (const [run, expected] of [[first, 'Prefer detailed walkthroughs.'], [second, 'Prefer concise posts.']]) {
+    const packet = cli('dispatch', run, 'context');
+    const snapshot = packet.inputs.find(file => file.path === join(run, 'writing-profile.md'));
+    assert.equal(readFileSync(snapshot.path, 'utf8'), expected);
+    assert.deepEqual(packet.allowedWrites, [packet.outputDir]);
+  }
+  assert.equal(read(join(first, 'brief.json')).length, '500 words');
+  assert.equal(read(join(second, 'brief.json')).tone, undefined);
+  assert.equal(cli('status', first).outcome, 'in-progress');
+  writeFileSync(join(first, 'writing-profile.md'), 'Changed after dispatch.');
+  assert.equal(cli('status', first).outcome, 'stale');
+});
+
+test('invalid profile input leaves the requested run directory available for retry', t => {
+  const { holder } = fixture(t);
+  const run = join(holder, 'next');
+  const profilePath = join(holder, 'missing.md');
+  assert.throws(() => initWorkflow(run, { ...brief, profilePath }), /ENOENT/);
+  writeFileSync(profilePath, '\n');
+  assert.throws(() => initWorkflow(run, { ...brief, profilePath }), /empty/);
+  assert.equal(existsSync(run), false);
+});
+
 test('init preserves existing runs and rejects incomplete briefs or ungrounded authorization', t => {
   const { holder, run } = fixture(t);
   const original = readFileSync(join(run, 'workflow.json'), 'utf8');
@@ -497,4 +533,21 @@ test('a relocated coordinator resolves companion skills beside its installed fol
   assert.equal(packet.skillPath, join(installedSkills, 'understand-portfolio', 'SKILL.md'));
   assert.equal(packet.stage, 'context');
   assert.equal(read(join(run, 'workflow.json')).stages.context.status, 'running');
+});
+
+test('project install dispatches from sibling skills and preserves local edits on repeat', t => {
+  const { holder } = fixture(t);
+  const installer = fileURLToPath(new URL('../scripts/install.mjs', import.meta.url));
+  const install = () => execFileSync(process.execPath, [installer, holder], { encoding: 'utf8' });
+  install();
+  const skills = join(holder, '.agents', 'skills');
+  const helper = join(skills, 'portfolio-blog-workflow', 'scripts', 'workflow.mjs');
+  const entry = join(skills, 'understand-portfolio', 'SKILL.md');
+  const run = join(holder, 'installed-run');
+  initWorkflow(run, brief);
+  const packet = JSON.parse(execFileSync(process.execPath, [helper, 'dispatch', run, 'context'], { encoding: 'utf8' }));
+  assert.equal(packet.skillPath, entry);
+  writeFileSync(entry, 'Local changes');
+  install();
+  assert.equal(readFileSync(entry, 'utf8'), 'Local changes');
 });

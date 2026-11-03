@@ -11,7 +11,7 @@ export const STAGES = Object.freeze({
   context: {
     skill: 'understand-portfolio', dependencies: [],
     outputs: ['portfolio-context.md', 'writing-profile.md'],
-    task: 'Inspect only the selected portfolio and samples. Record current repository conventions, component APIs, checks, source locators, an editable writing profile, and access limits.',
+    task: 'Use the supplied writing-profile snapshot when available. Apply article-specific choices to the working copy. Verify relevant current repository conventions, component APIs, checks, source locators, and access limits.',
   },
   research: {
     skill: 'research-technical-article', dependencies: [],
@@ -120,7 +120,7 @@ function validateBrief(brief) {
   for (const key of ['talkingPoints', 'authorNotes', 'sourceMaterial']) {
     if (brief[key] !== undefined) assert(Array.isArray(brief[key]) && brief[key].every(nonempty), `${key} must be an array of nonempty strings.`);
   }
-  for (const key of ['reader', 'angle', 'portfolio']) {
+  for (const key of ['reader', 'angle', 'portfolio', 'length', 'tone']) {
     if (brief[key] !== undefined) assert(nonempty(brief[key]), `${key} must be a nonempty string when supplied.`);
   }
   const auth = brief.authorization ?? {};
@@ -136,6 +136,14 @@ export function initWorkflow(runDir, brief) {
   const root = resolve(runDir);
   const normalized = validateBrief(brief);
   assert(!existsSync(root), 'Run directory already exists; resume it or choose a new directory.');
+  let profile;
+  if (normalized.profilePath !== undefined) {
+    const path = normalized.profilePath;
+    assert(nonempty(path) && isAbsolute(path) && /\.md$/i.test(path), 'profilePath must be an absolute Markdown file path.');
+    assert(lstatSync(path).isFile(), 'profilePath must name a regular file.');
+    profile = readFileSync(path, 'utf8');
+    assert(profile.trim(), 'The selected writing profile is empty.');
+  }
   mkdirSync(dirname(root), { recursive: true });
   mkdirSync(root);
   const now = new Date().toISOString();
@@ -145,6 +153,10 @@ export function initWorkflow(runDir, brief) {
     history: [],
   };
   atomicJSON(root, 'brief.json', normalized);
+  if (profile !== undefined) {
+    state.profileSnapshot = 'writing-profile.md';
+    writeFileSync(localPath(root, state.profileSnapshot), profile, { flag: 'wx' });
+  }
   atomicJSON(root, 'workflow.json', state);
   return statusWorkflow(root);
 }
@@ -241,6 +253,7 @@ export function dispatchStage(runDir, name) {
     const outputDir = `work/${name}/${assignmentId}`;
     mkdirSync(localPath(root, outputDir), { recursive: true });
     const paths = ['brief.json', ...definition.dependencies.flatMap(dep => (state.stages[dep].files ?? []).map(file => file.path))];
+    if (name === 'context' && state.profileSnapshot) paths.push(state.profileSnapshot);
     const previousOutputs = previousAssignments(state, name).map(previous => ({
       assignmentId: previous.assignmentId, revision: previous.revision, outcome: previous.status,
       outputDir: localPath(root, previous.outputDir),
