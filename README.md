@@ -40,6 +40,51 @@ The exact output depends on the tools and access available to your assistant. Yo
 3. **Write and prepare.** It turns the research and your notes into a draft, with useful examples or artifacts where appropriate, and stages portfolio files for review.
 4. **Review together.** It checks the article and explains what needs your attention. You decide what to change and whether to publish.
 
+The workflow coordinates these stages while keeping your review and publication decisions in your hands:
+
+```mermaid
+flowchart LR
+    Idea["Idea and notes"] --> Context["Understand portfolio and style"]
+    Idea --> Research["Research and evidence"]
+    Context --> Draft["Compose article"]
+    Research --> Draft
+    Draft --> Artifacts{"Would an artifact help?"}
+    Artifacts -->|Yes| Build["Build and verify artifact"]
+    Artifacts -->|No| Integrate["Prepare portfolio files"]
+    Build --> Integrate
+    Integrate --> Review["Review article"]
+    Review --> Author["Author review and decisions"]
+```
+
+## Skills and when to use them
+
+Each specialist can also be used on its own with the relevant inputs.
+
+| Skill | What it does and when to use it |
+| --- | --- |
+| [portfolio-blog-workflow](skills/portfolio-blog-workflow/SKILL.md) | Coordinates the full article process; use it to go from an idea or notes to a reviewable portfolio contribution. |
+| [understand-portfolio](skills/understand-portfolio/SKILL.md) | Builds a writing profile and discovers portfolio conventions; use it for initial setup or article context. |
+| [research-technical-article](skills/research-technical-article/SKILL.md) | Investigates a topic and tracks evidence and counterarguments; use it to research or verify claims, including without writing an article. |
+| [compose-technical-article](skills/compose-technical-article/SKILL.md) | Shapes notes and research into an outline and draft; use it when you want to write an article. |
+| [build-article-artifacts](skills/build-article-artifacts/SKILL.md) | Creates and checks diagrams, examples, or demos; use it when an artifact would clarify an article. |
+| [integrate-portfolio-article](skills/integrate-portfolio-article/SKILL.md) | Fits a draft, citations, and artifacts to a portfolio's conventions; use it to prepare repository-ready changes. |
+| [review-portfolio-article](skills/review-portfolio-article/SKILL.md) | Checks evidence, editorial quality, and the integrated article; use it to assess readiness and identify corrections. |
+
+Choose an entry point based on what you need:
+
+```mermaid
+flowchart TD
+    Start["What do you want to do?"] --> Full["Create an article end to end"]
+    Start --> Focus["Work on one part"]
+    Full --> Workflow["portfolio-blog-workflow"]
+    Focus --> Setup["Writing profile or portfolio context"]
+    Focus --> Evidence["Research or verify claims"]
+    Focus --> Other["Draft, build, integrate, or review"]
+    Setup --> Understand["understand-portfolio"]
+    Evidence --> ResearchSkill["research-technical-article"]
+    Other --> Specialist["Choose the matching specialist above"]
+```
+
 ## Choose your setup
 
 ### Codex, Claude Code, and other coding agents
