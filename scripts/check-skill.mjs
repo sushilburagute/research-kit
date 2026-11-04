@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 export const requiredSkills = [
   'portfolio-blog-workflow', 'understand-portfolio', 'research-technical-article',
   'compose-technical-article', 'build-article-artifacts', 'integrate-portfolio-article',
-  'review-portfolio-article',
+  'review-portfolio-article', 'optimize-article-seo', 'verify-portfolio-article',
 ];
 
 const researchFiles = [

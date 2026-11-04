@@ -32,7 +32,7 @@ function resultFor(packet, overrides = {}) {
     summary: 'Synthetic stage outputs for coordinator behavior testing only.',
     outputs: [...packet.requiredOutputs], unresolved: [],
     checks: [{ command: 'Synthetic output fixture', status: 'passed', details: 'Files created; content quality is not evaluated.' }],
-    ...(packet.stage === 'review' ? { reviewVerdict: 'ready-for-publication', findings: [] } : {}),
+    ...(packet.stage === 'review' ? { reviewVerdict: 'ready-for-publication', verification: 'independent', findings: [] } : {}),
     ...overrides,
   };
 }
@@ -547,6 +547,26 @@ test('project install dispatches from sibling skills and preserves local edits o
   initWorkflow(run, brief);
   const packet = JSON.parse(execFileSync(process.execPath, [helper, 'dispatch', run, 'context'], { encoding: 'utf8' }));
   assert.equal(packet.skillPath, entry);
+  const installedSeo = join(skills, 'optimize-article-seo', 'SKILL.md');
+  assert.ok(existsSync(installedSeo));
+  completeStage(run, 'context', resultFor(packet));
+  finish(run, 'research');
+  const installedDispatch = stage => JSON.parse(execFileSync(process.execPath, [helper, 'dispatch', run, stage], { encoding: 'utf8' }));
+  const compose = installedDispatch('compose');
+  assert.equal(compose.companionSkillPath, installedSeo);
+  completeStage(run, 'compose', resultFor(compose));
+  skipArtifacts(run, 'No demo needed');
+  finish(run, 'integrate');
+  const review = installedDispatch('review');
+  assert.equal(review.companionSkillPath, installedSeo);
+  assert.equal(review.verifierSkillPath, join(skills, 'verify-portfolio-article', 'SKILL.md'));
+  assert.ok(existsSync(review.verifierSkillPath));
+  const result = resultFor(review);
+  assert.throws(() => completeStage(run, 'review', { ...result, verification: undefined }), /verification mode/);
+  const fallback = { ...result, verification: 'unavailable', outcome: 'limited', unresolved: ['Host has no subagent tool.'] };
+  assert.throws(() => completeStage(run, 'review', fallback), /non-ready verdict/);
+  completeStage(run, 'review', { ...fallback, reviewVerdict: 'limited-review' });
+  assert.equal(statusWorkflow(run).outcome, 'limited');
   writeFileSync(entry, 'Local changes');
   install();
   assert.equal(readFileSync(entry, 'utf8'), 'Local changes');

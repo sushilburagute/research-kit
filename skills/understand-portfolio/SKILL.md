@@ -7,6 +7,10 @@ description: Initialise or update a portfolio writer’s reusable Markdown profi
 
 Discover the conventions an article must fit and the author's observed writing preferences. Produce context for another agent, not a redesign or a new generic voice.
 
+## Scope the request
+
+Read the request, brief and prior answers first. For a new standalone ask, use the host’s question tool to batch 2–3 short questions about open choices. Ask which portfolio to use, who will read it, and which writing samples best represent the author. Ask fewer when some choices are settled. Proceed directly when scope is clear or the author delegates the choice. If the tool is unavailable, ask in chat. In coordinated work, reuse the coordinator’s answers and route material gaps back to the coordinator.
+
 ## Inputs and scope
 
 - For “initialise my portfolio”, use the author's chosen private writing workspace, one per author and portfolio. Save `writing-profile.md` at its root using the template below. A topic is optional. An About page and one or two selected posts are a useful starting point. With no samples, save supplied preferences and mark observations unknown. Return the path and stop after setup.
@@ -37,10 +41,11 @@ Use [writing-profile.md](assets/writing-profile.md). Separate explicit author pr
 
 - Describe point of view, sentence rhythm, technical depth, opening patterns, transitions, examples, headings, code explanations, and endings only when supported by samples.
 - Give a source locator and confidence for each material observation. Note differences between posts rather than forcing one universal style.
-- When a missing preference matters, use the host's question tool if available, otherwise ask in chat. Offer concrete choices and a recommended default. A delegated worker routes the question to its coordinator.
 - Extract reusable preferences, not copied passages or distinctive phrases. Never infer personal experience, team history, beliefs, or measured outcomes from style.
 
 ## Handoff
+
+Identify the intended article route and available preview conventions so final verification can select the correct revision.
 
 For article context, return `portfolio-context.md` and `writing-profile.md`, with missing inputs and the next useful action. For standalone profile setup or refresh, return just the reusable profile.
 

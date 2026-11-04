@@ -11,6 +11,10 @@
 | --- | --- | --- | --- | --- | --- |
 | R1 | {{blocking, important, or suggestion}} | {{file/section/claim ID}} | {{specific observable issue; source locator}} | {{why it matters; narrow correction}} | {{context, research, compose, artifacts, or integrate}} |
 
+## Independent verification
+
+{{Mode (independent or unavailable), article revision, scope, verifier findings with claim and source locations, and unresolved coverage. Record the reason for any local fallback.}}
+
 ## Claim audit
 
 {{Material factual claims, evidence actually read, supported scope, contradictions, attribution, dates/versions, source independence, and inaccessible evidence. Reference stable claim/source IDs and propose corrections separately.}}
@@ -22,6 +26,10 @@
 ## Artifact and integration review
 
 {{Explanation accuracy, runnable examples, accessibility, mobile/fallback behavior, metadata, components, links, citations, and private-material exposure.}}
+
+## Article SEO
+
+{{Search question and title promise, copy findings, emitted metadata, canonical, internal links and indexability observations. Identify source, preview and live checks separately.}}
 
 ## Checks
 

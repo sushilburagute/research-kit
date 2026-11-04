@@ -7,6 +7,10 @@ description: Develop an outline and technical blog draft from author talking poi
 
 Turn investigated material into a useful story for the intended reader. The author owns the argument, first-hand experience, voice, and final decisions.
 
+## Scope the request
+
+Read the request, brief and prior answers first. For a new standalone ask, use the host’s question tool to batch 2–3 short questions about open choices. Ask what readers should learn, which personal example to feature, and whether to write a quick read or a walkthrough. Ask fewer when some choices are settled. Proceed directly when scope is clear or the author delegates the choice. If the tool is unavailable, ask in chat. In coordinated work, reuse the coordinator’s answers and route material gaps back to the coordinator.
+
 ## Establish the available basis
 
 - Read the title and original talking points, intended reader and desired outcome, available research brief and evidence ledger, writing profile, repository context, and existing decisions. Record missing inputs rather than inventing them.
@@ -15,7 +19,7 @@ Turn investigated material into a useful story for the intended reader. The auth
 
 ## Shape the argument
 
-Apply the article brief's length, tone and audience ahead of profile defaults. If the author prefers to cut later, keep worthwhile worked examples while respecting explicit limits. If a choice would change the outline and remains unclear, use the available question tool or ask in chat. With a coordinator, send it the question and options.
+Apply the article brief's length, tone and audience ahead of profile defaults. If the author prefers to cut later, keep worthwhile worked examples while respecting explicit limits. In coordinated runs, use the planning pass of `optimize-article-seo` before outlining. Record the search question and the promise the article can support in `decisions.md`.
 
 Use [outline.md](assets/outline.md) to make the central question, tentative thesis, reader payoff, and sequence explicit. Choose a narrative structure that fits the material: an observed problem and investigation, a decision with trade-offs, or a mechanism explained through examples. Do not impose a fictional incident or canned opening.
 
@@ -36,6 +40,8 @@ Use [article.md](assets/article.md) and [talking-points.md](assets/talking-point
 - Match demonstrated conventions for headings, code, links, and metadata. Unknown components should remain described integration requirements rather than invented imports.
 
 ## Handoff and revisions
+
+Carry claim IDs through substantive edits so the verifier can trace a conclusion from the final wording to its source.
 
 Return `outline.md`, `article.md`, `decisions.md`, and `talking-points.md`. With a coordinator, retain these required working filenames even if the portfolio uses MDX; integration stages the target extension. For standalone work the assigned content extension may replace `article.md`. Explain what is ready, which claims or personal details remain unresolved, and artifact requirements. When revising, retain decision IDs and the history of material changes, marking replaced decisions `superseded`; request fresh research when the argument changes its factual basis.
 

@@ -20,6 +20,7 @@ export const STAGES = Object.freeze({
   },
   compose: {
     skill: 'compose-technical-article', dependencies: ['context', 'research'],
+    companion: 'optimize-article-seo',
     outputs: ['outline.md', 'article.md', 'decisions.md', 'talking-points.md'],
     task: 'Use the context, writing profile, brief, and ledger to structure and draft the article. Preserve author notes, map factual passages to claim IDs, summarize talking points, and record editorial decisions.',
   },
@@ -35,6 +36,7 @@ export const STAGES = Object.freeze({
   },
   review: {
     skill: 'review-portfolio-article', dependencies: ['context', 'research', 'compose', 'artifacts', 'integrate'],
+    companion: 'optimize-article-seo',
     outputs: ['review-report.md'],
     task: 'Review the integrated article against the ledger, author intent, repository conventions, code/demo behavior, accessibility, and rendered preview. Report decision requests and rework owners. Do not silently fix another stage or claim unrun checks passed.',
   },
@@ -233,7 +235,7 @@ export function statusWorkflow(runDir) {
     stages: Object.fromEntries(Object.entries(state.stages).map(([name, stage]) => [name, {
       status: stage.status, revision: stage.revision, assignmentId: stage.assignmentId,
       summary: stage.result?.summary ?? stage.reason, unresolved: stage.result?.unresolved ?? [],
-      reviewVerdict: stage.result?.reviewVerdict, findings: stage.result?.findings,
+      verification: stage.result?.verification, reviewVerdict: stage.result?.reviewVerdict, findings: stage.result?.findings,
     }])),
   };
 }
@@ -247,8 +249,14 @@ export function dispatchStage(runDir, name) {
     assert(['pending', 'failed'].includes(stage.status), `Stage ${name} is ${stage.status}; invalidate it before rerunning.`);
     assert(definition.dependencies.every(dep => accepted(state.stages[dep])), `Stage ${name} has unfinished dependencies.`);
     const brief = validateBrief(readJSON(localPath(root, 'brief.json')));
-    const skillPath = join(skillRoot, definition.skill, 'SKILL.md');
-    assert(existsSync(skillPath), `Install the companion skill ${definition.skill} beside portfolio-blog-workflow, or follow the manual handoff contract.`);
+    function resolveSkill(skill) {
+      const path = join(skillRoot, skill, 'SKILL.md');
+      assert(existsSync(path), `Install the companion skill ${skill} beside portfolio-blog-workflow, or follow the manual handoff contract.`);
+      return path;
+    }
+    const skillPath = resolveSkill(definition.skill);
+    const companionSkillPath = definition.companion && resolveSkill(definition.companion);
+    const verifierSkillPath = name === 'review' && resolveSkill('verify-portfolio-article');
     const assignmentId = randomUUID();
     const outputDir = `work/${name}/${assignmentId}`;
     mkdirSync(localPath(root, outputDir), { recursive: true });
@@ -275,6 +283,8 @@ export function dispatchStage(runDir, name) {
     const packet = {
       schemaVersion: 1, runId: state.runId, assignmentId, revision: stage.revision, stage: name,
       skill: definition.skill, skillPath, task: definition.task,
+      ...(companionSkillPath && { companionSkillPath }),
+      ...(verifierSkillPath && { verifierSkillPath }),
       inputs: inputs.map(file => ({ ...file, path: localPath(root, file.path) })),
       previousOutputs: previousOutputs.map(previous => ({ ...previous, files: absoluteFiles(previous.files) })),
       revisionContext: revisionContext ? { ...revisionContext, reviewFiles: absoluteFiles(revisionContext.files), files: undefined } : null,
@@ -286,11 +296,13 @@ export function dispatchStage(runDir, name) {
       resultContract: { assignmentId, revision: stage.revision, outcome: 'complete | limited | needs-author', summary: 'What was done and what was not checked.', outputs: ['paths relative to outputDir'], unresolved: ['remaining questions or blockers'], checks: [{ command: 'command or review procedure actually attempted', status: 'passed | failed | not-run', details: 'observed result or reason not run' }] },
     };
     if (name === 'review') {
+      packet.resultContract.verification = 'independent | unavailable';
+      packet.acceptanceCriteria.push('Use verifierSkillPath to dispatch a fresh verifier for this revision and include its evidence in review-report.md. If unavailable, record the reason and limit readiness.');
       packet.resultContract.reviewVerdict = 'ready-for-publication | needs-changes | limited-review';
       packet.resultContract.findings = [{ id: 'R1', severity: 'blocking | important | suggestion', stage: 'responsible stage', summary: 'Finding and requested correction; details in review-report.md.' }];
     }
     if (stage.outputDir) state.history.push({ event: 'retried', stage: name, previous: { [name]: stage }, at: new Date().toISOString() });
-    state.stages[name] = { status: 'running', revision: stage.revision, assignmentId, outputDir, inputs, ...(stage.rework ? { rework: stage.rework } : {}) };
+    state.stages[name] = { status: 'running', revision: stage.revision, assignmentId, outputDir, inputs, ...(verifierSkillPath && { requiresVerification: true }), ...(stage.rework ? { rework: stage.rework } : {}) };
     atomicJSON(root, `handoffs/${assignmentId}.json`, packet);
     state.history.push({ event: 'dispatched', stage: name, assignmentId, revision: stage.revision, at: new Date().toISOString() });
     return packet;
@@ -314,6 +326,12 @@ export function completeStage(runDir, name, result) {
       assert(['ready-for-publication', 'needs-changes', 'limited-review'].includes(result.reviewVerdict), 'Review result requires a reviewVerdict.');
       assert(Array.isArray(result.findings) && result.findings.every(finding => nonempty(finding.id) && ['blocking', 'important', 'suggestion'].includes(finding.severity) && Object.hasOwn(STAGES, finding.stage) && nonempty(finding.summary)), 'Review requires findings with id, severity, responsible stage, and summary.');
       const blocking = result.findings.some(finding => finding.severity === 'blocking');
+      if (stage.requiresVerification) {
+        assert(['independent', 'unavailable'].includes(result.verification), 'Review requires an explicit verification mode.');
+        if (result.verification === 'unavailable') {
+          assert(result.reviewVerdict !== 'ready-for-publication' && result.outcome !== 'complete' && result.unresolved.length > 0, 'Unavailable independent verification requires a limited or needs-author result, a reason, and a non-ready verdict.');
+        }
+      }
       assert(result.reviewVerdict !== 'ready-for-publication' || !blocking, 'A ready review cannot contain blocking findings.');
       assert(result.reviewVerdict !== 'needs-changes' || blocking, 'A needs-changes review requires a blocking finding.');
     }

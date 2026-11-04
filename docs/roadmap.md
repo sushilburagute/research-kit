@@ -13,8 +13,11 @@ Implemented: research instructions, references, templates, structural checks, an
 
 ## Portfolio workflow - implemented package
 
-- Seven focused skills, including a coordinator and the original standalone researcher.
+- Nine focused skills, including a coordinator and the original standalone researcher.
 - Editable writing profile derived from selected samples and verified repository context.
+- One scoping round across the workflow, with standalone question-tool or chat intake for each specialist.
+- Independent claim verification in standalone and lifecycle modes, with a read-only subagent assignment and an explicit fallback when delegation is unavailable.
+- Article SEO planning before outlining and a source-aware audit during integrated review.
 - Outline/story composition, talking-point coverage, editorial decisions, and preserved author notes.
 - Optional artifact/demonstration workflow with explicit assumptions, accessibility and static fallback.
 - Repository discovery adapter for actual schemas, React/MDX or other content components, citation transforms, assets and checks.

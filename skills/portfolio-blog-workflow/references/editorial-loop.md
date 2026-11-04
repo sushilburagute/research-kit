@@ -16,6 +16,8 @@ At outline time, expose the central argument, evidence, counterargument, intende
 | --- | --- | --- |
 | New source, numerical error, unsupported or overstated claim | `research` | Composition, artifacts, integration and review. |
 | Misread component API, outdated content schema or writing-profile inference | `context` | Composition, artifacts, integration and review. |
+| Search title promises an answer the article does not deliver | `compose` | Artifacts, integration and review. |
+| Wrong emitted canonical or unintended public noindex | `integrate` | Review the corrected output. |
 | Argument, voice, structure, author question, or takeaway changes | `compose` | Artifacts, integration and review. |
 | Incorrect calculation, inaccessible interaction, or misleading demo default | `artifacts` | Integration and review. |
 | Broken import, missing citation placement, wrong frontmatter or asset path | `integrate` | Review. |
@@ -24,6 +26,8 @@ At outline time, expose the central argument, evidence, counterargument, intende
 One upstream correction can affect multiple passages. Keep IDs stable, narrow the current claim wording, preserve original wording and correction history, and check that summaries, headings, figure captions, demos, and social metadata do not retain an overstated claim. A failed website build is not evidence against a research claim; a successful build is not evidence for one.
 
 ## Readiness and publication handoff
+
+For each verifier finding, compare the quoted article revision and evidence, assign the correction to its owner, and recheck affected claims after integration. An unavailable independent pass limits readiness even if local checks passed.
 
 The review report distinguishes blocking and nonblocking findings, evidence gaps, author decisions, actual checks, and unperformed work. The coordinator inspects all stage limitations and does not clear an earlier limitation just because the final build passes.
 

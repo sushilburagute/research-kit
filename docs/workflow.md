@@ -10,6 +10,8 @@ Research Kit can handle a selected stage or coordinate an article from title and
 | Research and talking points | Existing researcher, counterevidence, stable claim/source IDs, evidence gaps. |
 | Voice, repository and portfolio context | Selected samples, editable profile with provenance, verified schema/component/check inventory. |
 | Story structure and draft | Reader outcome, outline, author contribution, draft, decisions and talking-point coverage. |
+| Independent verification | During final review a fresh subagent checks the integrated revision against source passages and reproducible calculations. The reviewer reconciles its findings and routes corrections. A local fallback is reported as limited. Standalone verification accepts a draft or URL without run state. |
+| Article SEO | Composition uses `optimize-article-seo` to record search intent and title choices before outlining. Integration applies adopted metadata. Review uses the same skill to inspect the rendered article and report unverified live checks. |
 | Optional artifacts | Explanatory decision, staged artifact, assumptions, validation and accessible fallback. |
 | Repository conventions and components | Discovered adapter, actual component props, registration, paths, metadata and checks. |
 | Summary and review decisions | Draft takeaways and traceable editorial choices; actionable review findings. |
@@ -20,9 +22,11 @@ These are skills and local coordination logic. Search access, a writable checkou
 
 ## Skill layout and use
 
-Keep the seven directories under `skills/` together as sibling skill folders when installing the complete workflow. Each has its own entrypoint and local resources; the coordinator routes by skill name and its helper resolves sibling entrypoints. Individual specialist folders are portable, with no dependency on a global configuration or on another installed skill for standalone tasks. If a companion is absent, helper dispatch identifies the missing skill rather than inventing its output.
+Keep the nine directories under `skills/` together as sibling skill folders when installing the complete workflow. Each has its own entrypoint and local resources; the coordinator routes by skill name and its helper resolves sibling entrypoints. Individual specialist folders are portable, with no dependency on a global configuration or on another installed skill for standalone tasks. If a companion is absent, helper dispatch identifies the missing skill rather than inventing its output.
 
 Use the [quick start](../README.md) to install the skills and initialise a private writing workspace for one author and portfolio. Setup saves the byline, public bio, portfolio locator, writing preferences and sample observations in `writing-profile.md`. Later chats opened in that workspace can start with a topic and notes. A one-off article can proceed without a saved profile. Research alone needs neither a profile nor a portfolio.
+
+An open-ended request starts with one batch of 2–3 scoping questions via the host’s question tool or chat. The coordinator records the answers and specialists reuse them. Standalone skills ask about their own scope. Settled choices carry forward on resume.
 
 ## Executable handoffs
 

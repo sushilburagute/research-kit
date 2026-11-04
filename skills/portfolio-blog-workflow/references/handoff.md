@@ -1,6 +1,6 @@
 # Handoffs and persistent runs
 
-The helper is a local state manager, not a model runtime. It creates assignments for the host to execute with its tools or subagents. Use Node 18 or newer; no package installation is needed. All seven skill folders must be siblings for helper dispatch. Its JSON records are private article artifacts, not repository contributions by default.
+The helper is a local state manager, not a model runtime. It creates assignments for the host to execute with its tools or subagents. Use Node 18 or newer; no package installation is needed. All nine skill folders must be siblings for helper dispatch. Its JSON records are private article artifacts, not repository contributions by default.
 
 ## Commands
 
@@ -13,7 +13,7 @@ node skills/portfolio-blog-workflow/scripts/workflow.mjs dispatch ../article-wor
 node skills/portfolio-blog-workflow/scripts/workflow.mjs dispatch ../article-work research
 ```
 
-Initialization refuses an existing directory. Dispatch writes a durable packet under `handoffs/` and returns its JSON. Give that packet and the indicated `skillPath` to a worker using the host's delegation tool. Do not turn packet text into a shell command. When no delegation tool exists, perform the assignment yourself, honoring the same inputs and output ownership.
+Initialization refuses an existing directory. Dispatch writes a durable packet under `handoffs/` and returns its JSON. Give that packet and the indicated `skillPath` and, for composition and review, `companionSkillPath` for the SEO skill to a worker using the host's delegation tool. The review packet also supplies `verifierSkillPath`. Use it to delegate the read-only claim check to a fresh worker. Do not turn packet text into a shell command. When no delegation tool exists, perform the assignment yourself, honoring the same inputs and output ownership.
 
 The coordinator alone invokes helper mutation commands. It may dispatch ready assignments concurrently, but must serialize helper calls. An exclusive lock protects each state update. Workers can write concurrently only into their separate assignment directories. The helper launches no agents, runs no checks, reads no portfolio source, and performs no repository edits itself.
 
@@ -67,6 +67,8 @@ Outcomes:
 - `needs-author`: essential input or evidence prevents meaningful dependent work. Those dependents do not become ready. Map a research completion of `needs-essential-evidence` to this outcome; map research `limited` to `limited`. Research `ready-for-narrative` is not automatically overall readiness.
 
 Do not omit a required check merely to achieve `complete`. The helper validates reported fields, file presence, input freshness, and identities. It cannot establish that the checks happened or a source supports a claim. The coordinator must review the evidence and actual results.
+
+For review packets containing `verifierSkillPath`, return `verification` as `independent` only after a fresh worker has checked the target revision. Otherwise return `unavailable`, give the reason in `unresolved`, and use a limited or needs-author outcome with `limited-review` (or `needs-changes` for a blocking finding). Earlier in-flight packets use their original contract.
 
 For `review` results, also return `reviewVerdict` (`ready-for-publication`, `needs-changes`, or `limited-review`) and `findings` (an array, possibly empty). Each finding contains `id`, `severity` (`blocking`, `important`, or `suggestion`), responsible `stage`, and `summary`; detailed locations and evidence belong in the report. `needs-changes` requires a blocking finding; a ready verdict cannot contain one. A reviewer may finish its assignment with a `complete` result and a `needs-changes` verdict. The overall status then remains `needs-changes` until the coordinator routes corrections, invalidates the responsible stages, and accepts a fresh review. `limited-review` always prevents overall `ready-for-author`.
 

@@ -7,6 +7,10 @@ description: Integrate a drafted technical article, citations, and optional arti
 
 Fit the article to the actual repository with the smallest coherent change. Preserve the author's material and unrelated working-tree changes.
 
+## Scope the request
+
+Read the request, brief and prior answers first. For a new standalone ask, use the host’s question tool to batch 2–3 short questions about open choices. Ask which checkout to use, what deliverable the author wants, and where they preview the site. Ask fewer when some choices are settled. Proceed directly when scope is clear or the author delegates the choice. If the tool is unavailable, ask in chat. In coordinated work, reuse the coordinator’s answers and route material gaps back to the coordinator.
+
 ## Establish the integration contract
 
 - Read applicable repository instructions, current working-tree status, portfolio context, writing profile, draft, evidence ledger, decisions, and artifact report. Confirm that source revisions still match the assigned inputs.
@@ -22,6 +26,7 @@ Fit the article to the actual repository with the smallest coherent change. Pres
 - Reuse verified components with their real imports and props. For MDX, confirm the import/export mechanism, escaping, server/client boundaries, allowed syntax, and renderer support for raw HTML and scripts. Use standard links or fenced code when support is unknown.
 - Place artifact source and assets according to repository conventions. Verify captions, alternative text, static fallback, dependencies, and relative paths after moving files.
 - Use the site's existing lazy-loading or hydration wrapper for heavy interactivity when available. Keep the article meaningful in feeds, static output, and environments where the demo cannot execute.
+- Apply adopted SEO choices using the existing fields and route helpers. Preserve established URLs. Record the preview or built HTML locator so review can inspect what the site emits.
 - Fill required metadata from known or task-authorized choices: title, description, slug, tags, dates, draft status, canonical URL, and social image where supported. Do not invent publication dates or create a canonical URL before the actual route is known.
 - Add useful internal links only when their routes exist. Preserve cited source URLs and attribution. A references list without a connection to the claim does not establish support.
 
@@ -33,6 +38,8 @@ Fit the article to the actual repository with the smallest coherent change. Pres
 - Keep internal citation maps in working outputs; do not leak private source locators or nonpublic notes into public links. If publishing a claim would disclose private material, flag the specific decision needed.
 
 ## Verify and hand off
+
+Identify the exact integrated article or staged path and revision in the manifest for `verify-portfolio-article`. If integration changed a technical claim, point the verifier to that passage.
 
 Run configured checks appropriate to the actual change, such as content/schema validation, typecheck, lint, build, and relevant tests. Use the existing preview mechanism to inspect the rendered article when available. Record exact commands and actual outcomes. Do not deploy, merge, push, open a PR, or publish unless the current task authorizes that action; preserve authorization already given rather than asking again.
 

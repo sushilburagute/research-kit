@@ -1,8 +1,16 @@
 # Portfolio workflow evaluation
 
-Run these in an isolated article workspace with the seven skills available. Give the tester the task, raw inputs and the coordinator entrypoint; do not give it the assessment criteria until after collecting output. Record the host, date, tools, readable inputs, actual checks, outputs and failures. Use synthetic fixtures or explicitly authorized materials. Keep private source, writing samples and output drafts out of this public repository.
+Run these in an isolated article workspace with the nine skills available. Give the tester the task, raw inputs and the coordinator entrypoint; do not give it the assessment criteria until after collecting output. Record the host, date, tools, readable inputs, actual checks, outputs and failures. Use synthetic fixtures or explicitly authorized materials. Keep private source, writing samples and output drafts out of this public repository.
 
 These scenarios are separate from deterministic handoff tests and the [research scenarios](scenarios.md). A helper pass cannot establish a source supports a claim or that a portfolio renders correctly.
+
+## Independent verification
+
+Supply a benchmark post that describes a drop from 120 ms to 90 ms as a 50% reduction, plus the benchmark log and a release claim with no citation. Run the verifier standalone. Check that a fresh worker reports 25%, identifies the missing evidence, and preserves the draft. In a full run change the number during integration and confirm the verifier identifies the integrated revision. Repeat without delegation and confirm the report records the reason and cannot reach ready-for-author.
+
+## Article SEO and scoped intake
+
+Give the coordinator a vague article idea about cache latency and a profile with a known audience. Answer the initial scoping questions with a first-hand example and desired endpoint. Check that the coordinator batches the open choices, specialists reuse the answers, and the proposed title stays within the evidence. Provide a private preview with intentional noindex and an incorrect canonical for the intended public route. Check that review distinguishes the two, records the inspected surface and routes the canonical fix to integration. Repeat the SEO audit standalone with Markdown only and no question tool. Check for chat fallback when scope is open and explicit limits on rendered and live checks.
 
 ## 1. Source-limited full article
 

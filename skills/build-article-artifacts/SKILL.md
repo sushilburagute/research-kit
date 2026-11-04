@@ -7,6 +7,10 @@ description: Build and verify diagrams, runnable examples, and interactive demos
 
 Create an artifact only when it helps the reader understand a concrete mechanism, comparison, or decision. A full blogging workflow does not require a demo for every article.
 
+## Scope the request
+
+Read the request, brief and prior answers first. For a new standalone ask, use the host’s question tool to batch 2–3 short questions about open choices. Ask which idea readers struggle with, what data can be shown, and where the artifact needs to run. Ask fewer when some choices are settled. Proceed directly when scope is clear or the author delegates the choice. If the tool is unavailable, ask in chat. In coordinated work, reuse the coordinator’s answers and route material gaps back to the coordinator.
+
 ## Decide what helps
 
 - Read the article or outline, learning goal, evidence, repository context, relevant component contracts, and any author choices. Identify the exact section the artifact supports.
@@ -32,6 +36,8 @@ Create an artifact only when it helps the reader understand a concrete mechanism
 - Confirm captions, units, axes, baseline, provenance, and surrounding prose match the artifact's actual behavior. Route empirical claim changes back to research.
 
 ## Handoff
+
+Include the inputs and expected outputs for material calculations so a fresh verifier can reproduce them.
 
 Use [artifact-report.md](assets/artifact-report.md). Return `artifact-report.md`, the artifact files if any, integration instructions, validation results, and known limits. A skipped artifact can be a complete result when the explanation does not need one; missing execution access is a limit rather than a passed test.
 

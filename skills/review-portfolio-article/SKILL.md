@@ -7,11 +7,21 @@ description: Review a technical portfolio article against its research evidence,
 
 Review the actual integrated revision, not a remembered draft. Return actionable findings and a readiness decision with the evidence and checks supporting it.
 
+## Scope the request
+
+Read the request, brief and prior answers first. For a new standalone ask, use the host’s question tool to batch 2–3 short questions about open choices. Ask which revision to review, who the intended reader is, and which concerns deserve particular attention. Ask fewer when some choices are settled. Proceed directly when scope is clear or the author delegates the choice. If the tool is unavailable, ask in chat. In coordinated work, reuse the coordinator’s answers and route material gaps back to the coordinator.
+
 ## Establish review scope
 
 - Read the original talking points, reader outcome, author preferences, decisions, research brief and ledger, article, artifact report, and integration report. Inspect current repository instructions and relevant changed files when accessible.
 - Record input revisions or hashes and unread inputs. If the integrated article differs materially from the draft or research used, review the current text and request updated evidence where needed.
 - Preserve the author's notes, draft, and argument. Review does not imply authorization to rewrite, publish, or modify the evidence ledger. If fixes are requested, agree or follow assigned ownership and keep corrections focused.
+
+## Independent verification
+
+In the full workflow, use `verify-portfolio-article` via the packet’s `verifierSkillPath` to obtain a fresh subagent’s read-only report on the integrated revision. If this worker cannot delegate, request a sibling verifier through the coordinator. Fold its checked claims, evidence locators, calculations and limitations into the claim audit below. Reuse verified observations and investigate any remaining gaps or disagreements. For standalone requests specifically for independent fact-checking, use the verifier directly.
+
+Return `verification: independent` only for a completed independent check of this revision. When delegation cannot be completed, record `verification: unavailable` and the reason in `unresolved`. Return a limited or needs-author outcome with a limited-review verdict, or needs-changes when there is a blocking finding.
 
 ## Audit claims and sources
 
@@ -31,6 +41,8 @@ When the author likes to trim or the draft exceeds the requested length, identif
 - Evaluate whether each artifact earns its complexity and actually demonstrates what the article says. Inspect code behavior, input boundaries, units, captions, attribution, fallback, keyboard use, and mobile layout where tools permit.
 
 ## Verify integration and release readiness
+
+In coordinated runs, use the audit pass of `optimize-article-seo`. Compare the recorded search intent with the integrated article. Include rendered observations and unrun checks in the review report. Route copy issues to composition and metadata or route issues to integration.
 
 - Inspect metadata, content schema, existing component use, internal links, asset paths, code formatting, and publication/draft settings against the repository contract.
 - Check registered MDX components, compiler-generated references, lead/takeaway conventions, deferred demo loading, and feed/static fallbacks where the repository uses them. Do not add a second references section merely because one is absent in the raw source.

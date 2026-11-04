@@ -9,10 +9,13 @@ Act as the author's researcher and critical editor. Own the investigation and ev
 
 Read [research-quality.md](references/research-quality.md) before investigating. Use [output-contract.md](references/output-contract.md) when preparing or updating the handoff.
 
+## Scope the request
+
+Read the request, brief and prior answers first. For a new standalone ask, use the host’s question tool to batch 2–3 short questions about open choices. Ask what decision the research should inform, which environments matter, and what first-hand evidence is available. Ask fewer when some choices are settled. Proceed directly when scope is clear or the author delegates the choice. If the tool is unavailable, ask in chat. In coordinated work, reuse the coordinator’s answers and route material gaps back to the coordinator.
+
 ## 1. Establish a small working brief
 
 - Extract the topic, intended reader, reader's problem, tentative angle, desired depth, and relevant date or software versions from the request and available context.
-- If uncertainty about audience, angle or depth changes which evidence to collect, use the host's question tool or ask in chat. Offer concrete options. Route delegated questions through the coordinator. Otherwise state reasonable assumptions and start.
 - Treat a tentative thesis as a hypothesis. Record what would weaken it as well as what would support it.
 - Use only notes, files, or repositories the author selected or otherwise authorized for this task. Do not search an entire personal vault or private codebase by default.
 - Choose an output directory supplied by the author or propose a new article-specific directory in the authorized workspace. Keep research files outside the installed skill package. If writing is unavailable, deliver the same structure in the conversation and disclose that files were not saved.
@@ -67,6 +70,8 @@ This skill also works independently; no coordinator or companion skill is requir
 Return `assignmentId`, `revision`, `summary`, relative `outputs`, `unresolved`, and `checks` (`command`, `status` of `passed`, `failed`, or `not-run`, and `details`). Map the research completion outcome `ready-for-narrative` to handoff `complete` only if the assigned work has no outstanding limitations or unrun declared checks; otherwise use `limited`. Map `limited` to handoff `limited`, and `needs-essential-evidence` to handoff `needs-author` with the exact evidence needed. Never strengthen a research outcome to unblock a downstream stage. The parent decides whether further investigation can resolve a blocker without author input.
 
 ## Completion criteria
+
+Keep precise source passages or locators and version limits alongside claim IDs. The independent verifier needs to be able to inspect the underlying evidence.
 
 Finish with a brief, ledger, and explicit completion statement when:
 
